@@ -13,8 +13,8 @@ import {
   StyledNumberTextWrap,
   StyledTextWrap,
 } from './ContactForm.styled';
-import { selectContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/contacts/selectors';
+import { addContact } from 'redux/contacts/operations';
 
 const ContactsSchema = Yup.object().shape({
   name: Yup.string()
@@ -76,7 +76,7 @@ export const ContactForm = () => {
               required
             />
           </label>
-          <ErrorMessage name="number" component="div" />
+          <ErrorMessage name="phone" component="div" />
         </StyledLabelWrap>
 
         <StyledBtnWrap>

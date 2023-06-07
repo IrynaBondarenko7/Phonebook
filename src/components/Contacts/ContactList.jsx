@@ -8,8 +8,8 @@ import {
   StyledNumber,
 } from './ContactList.styled';
 import { MdClose } from 'react-icons/md';
-import { selectContacts, selectFilter } from 'redux/selectors';
-import { deleteContact, fetchContacts } from 'redux/operations';
+import { selectContacts, selectFilter } from 'redux/contacts/selectors';
+import { deleteContact, fetchContacts } from 'redux/contacts/operations';
 import { GiSmartphone } from 'react-icons/gi';
 
 export const ContactList = () => {

@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/contacts/selectors';
 import {
   StyledFilterTextWrap,
   StyledFiltrWrap,
   StyledInput,
 } from './Filter.styled';
 import { MdPersonSearch } from 'react-icons/md';
-import { setFilter } from 'redux/filtersSlice';
+import { setFilter } from 'redux/contacts/filtersSlice';
 
 export const Filter = () => {
   const filter = useSelector(selectFilter);
