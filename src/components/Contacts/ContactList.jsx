@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+
 import {
   StyledContactList,
   StyledContactText,
@@ -9,17 +9,13 @@ import {
 } from './ContactList.styled';
 import { MdClose } from 'react-icons/md';
 import { selectContacts, selectFilter } from 'redux/contacts/selectors';
-import { deleteContact, fetchContacts } from 'redux/contacts/operations';
+import { deleteContact } from 'redux/contacts/operations';
 import { GiSmartphone } from 'react-icons/gi';
 
 export const ContactList = () => {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
 
   const normalizedFilter = filter.toLowerCase();
   const filtredContacts = contacts.filter(
@@ -37,7 +33,7 @@ export const ContactList = () => {
             <StyledContactText>{contact.name}</StyledContactText>
             <StyledNumber>
               <GiSmartphone />
-              {contact.phone}
+              {contact.number}
             </StyledNumber>
             <StyledDeleteBtn onClick={() => handleDelete(contact.id)}>
               <MdClose />
