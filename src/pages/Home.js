@@ -1,26 +1,33 @@
-const styles = {
-  container: {
-    minHeight: 'calc(100vh - 50px)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontWeight: 500,
-    fontSize: 48,
-    textAlign: 'center',
-  },
-};
+import { Container, Heading, Text, Button, Box } from '@chakra-ui/react';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Home() {
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>
-        Contacts manager welcome page{' '}
-        <span role="img" aria-label="Greeting icon">
-          💁‍♀️
-        </span>
-      </h1>
-    </div>
+    <Container maxW="1200px">
+      <Heading
+        as="h2"
+        size="3xl"
+        noOfLines={1}
+        mt="200px"
+        textAlign="center"
+        color="teal"
+      >
+        ContactEase PhoneBook
+      </Heading>
+      <Text fontSize="3xl" textAlign="center" mt="50px" color="teal.800">
+        Quickly and easily create and save contacts
+      </Text>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        width="100%"
+        mt="40px"
+      >
+        <Button as={RouterLink} to="/register" colorScheme="teal">
+          Get Started
+        </Button>
+      </Box>
+    </Container>
   );
 }

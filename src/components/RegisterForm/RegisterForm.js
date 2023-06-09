@@ -1,37 +1,103 @@
 import { useDispatch } from 'react-redux';
+import { Formik, Field } from 'formik';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Input,
+  VStack,
+} from '@chakra-ui/react';
+
 import { register } from 'redux/auth/operations';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    dispatch(
-      register({
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    );
-    form.reset();
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username
-        <input type="text" name="name" />
-      </label>
-      <label>
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label>
-        Password
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Register</button>
-    </form>
+    <Flex bg="gray.100" align="center" justify="center" h="100vh">
+      <Box bg="white" p={6} rounded="md" w={64}>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+            rememberMe: false,
+            name: '',
+          }}
+          onSubmit={values => {
+            const { name, email, password } = values;
+            dispatch(
+              register({
+                name: name,
+                email: email,
+                password: password,
+              })
+            );
+          }}
+        >
+          {({ handleSubmit, errors, touched }) => (
+            <form onSubmit={handleSubmit}>
+              <VStack spacing={4} align="flex-start">
+                <FormControl>
+                  <FormLabel htmlFor="name">User Name</FormLabel>
+                  <Field
+                    as={Input}
+                    id="name"
+                    name="name"
+                    type="text"
+                    variant="filled"
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="email">Email Address</FormLabel>
+                  <Field
+                    as={Input}
+                    id="email"
+                    name="email"
+                    type="email"
+                    variant="filled"
+                  />
+                </FormControl>
+                <FormControl isInvalid={!!errors.password && touched.password}>
+                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <Field
+                    as={Input}
+                    id="password"
+                    name="password"
+                    type="password"
+                    variant="filled"
+                    validate={value => {
+                      let error;
+
+                      if (value.length < 7) {
+                        error = 'Password must contain at least 7 characters';
+                      }
+
+                      return error;
+                    }}
+                  />
+                  <FormErrorMessage>{errors.password}</FormErrorMessage>
+                </FormControl>
+
+                <Field
+                  as={Checkbox}
+                  id="rememberMe"
+                  name="rememberMe"
+                  colorScheme="purple"
+                >
+                  Remember me?
+                </Field>
+                <Button type="submit" colorScheme="teal" width="full">
+                  Sign Up
+                </Button>
+              </VStack>
+            </form>
+          )}
+        </Formik>
+      </Box>
+    </Flex>
   );
 };

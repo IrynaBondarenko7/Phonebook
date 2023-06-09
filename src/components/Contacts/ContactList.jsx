@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
-
 import {
-  StyledContactList,
-  StyledContactText,
-  StyledContactsItem,
-  StyledDeleteBtn,
-  StyledNumber,
-} from './ContactList.styled';
+  List,
+  ListItem,
+  Flex,
+  Text,
+  Box,
+  Spacer,
+  Button,
+} from '@chakra-ui/react';
+
 import { MdClose } from 'react-icons/md';
 import { selectContacts, selectFilter } from 'redux/contacts/selectors';
 import { deleteContact } from 'redux/contacts/operations';
@@ -26,21 +28,43 @@ export const ContactList = () => {
   const handleDelete = id => dispatch(deleteContact(id));
 
   return (
-    <StyledContactList>
+    <List spacing={3} pt="20px">
       {filtredContacts.map(contact => {
         return (
-          <StyledContactsItem key={contact.id}>
-            <StyledContactText>{contact.name}</StyledContactText>
-            <StyledNumber>
-              <GiSmartphone />
-              {contact.number}
-            </StyledNumber>
-            <StyledDeleteBtn onClick={() => handleDelete(contact.id)}>
-              <MdClose />
-            </StyledDeleteBtn>
-          </StyledContactsItem>
+          <ListItem
+            key={contact.id}
+            w="450px"
+            borderColor="teal"
+            borderWidth="1px"
+            borderRadius="8px"
+            p="8px"
+          >
+            <Flex alignItems="center">
+              <Box w="200px">
+                <Text fontSize="md">{contact.name}</Text>
+              </Box>
+              <Spacer />
+              <Box w="180px">
+                <Flex gap="5px" alignItems="center">
+                  <GiSmartphone />
+                  <Text fontSize="md">{contact.number}</Text>
+                </Flex>
+              </Box>
+              <Spacer />
+              <Box>
+                <Button
+                  color="#e74c3c"
+                  w="50px"
+                  variant="outline"
+                  onClick={() => handleDelete(contact.id)}
+                >
+                  <MdClose />
+                </Button>
+              </Box>
+            </Flex>
+          </ListItem>
         );
       })}
-    </StyledContactList>
+    </List>
   );
 };
