@@ -4,13 +4,14 @@ import { fetchContacts } from 'redux/contacts/operations.js';
 import { ContactEditor } from 'components/ContactEditor/ContactEditor.js';
 import { Filter } from 'components/Filter/Filter.jsx';
 import { ContactList } from 'components/Contacts/ContactList.jsx';
-import { selectIsLoading } from 'redux/contacts/selectors';
+import { selectContacts, selectIsLoading } from 'redux/contacts/selectors';
 import { Loader } from 'components/Loader/Loader';
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box, Text } from '@chakra-ui/react';
 
 export default function Contacts() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+  const contacts = useSelector(selectContacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -24,6 +25,17 @@ export default function Contacts() {
       <Box p="20px" m="0 auto">
         <Filter />
         {isLoading && <Loader />}
+        {contacts.length === 0 && (
+          <Box pt="50px">
+            <Text fontSize="4xl" textAlign="center">
+              No contacts yet
+            </Text>
+            <Text fontSize="4xl" textAlign="center">
+              Create your first contact in the form on the left
+            </Text>
+          </Box>
+        )}
+
         <ContactList />
       </Box>
     </Flex>
