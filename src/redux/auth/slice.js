@@ -6,14 +6,24 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  errorRegistration: null,
+  errorLogIn: null,
 };
 
 const fulfilledRegOrLogInReducer = (state, action) => {
   state.user = action.payload.user;
   state.token = action.payload.token;
   state.isLoggedIn = true;
+  state.errorRegistration = null;
+  state.errorLogIn = null;
 };
 
+const rejectedRegistrationReducer = (state, action) => {
+  state.errorRegistration = action.payload;
+};
+const rejectedLogInReducer = (state, action) => {
+  state.errorLogIn = action.payload;
+};
 const fulfilledLogOutReducer = state => {
   state.user = { name: null, email: null };
   state.token = null;
@@ -40,7 +50,9 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, fulfilledRegOrLogInReducer)
+      .addCase(register.rejected, rejectedRegistrationReducer)
       .addCase(logIn.fulfilled, fulfilledRegOrLogInReducer)
+      .addCase(logIn.rejected, rejectedLogInReducer)
       .addCase(logOut.fulfilled, fulfilledLogOutReducer)
       .addCase(refreshUser.pending, pendingRefreshingReducer)
       .addCase(refreshUser.fulfilled, fulfilledRefreshReducer)

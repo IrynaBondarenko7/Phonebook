@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field } from 'formik';
 import {
   Box,
@@ -10,14 +10,28 @@ import {
   FormErrorMessage,
   Input,
   VStack,
+  Text,
 } from '@chakra-ui/react';
 import { logIn } from 'redux/auth/operations';
+import { selectErrorLogIn } from 'redux/auth/selectors';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const error = useSelector(selectErrorLogIn);
 
   return (
-    <Flex bg="gray.100" align="center" justify="center" h="100vh">
+    <Flex
+      bg="gray.100"
+      align="center"
+      justify="center"
+      h="100vh"
+      flexDirection="column"
+    >
+      {error && (
+        <Text fontSize="lg" color="#E74C3C" mb="10px">
+          The password or email is entered incorrectly
+        </Text>
+      )}
       <Box bg="white" p={6} rounded="md" w={64}>
         <Formik
           initialValues={{
@@ -27,6 +41,7 @@ export const LoginForm = () => {
           }}
           onSubmit={values => {
             const { email, password } = values;
+
             dispatch(
               logIn({
                 email: email,

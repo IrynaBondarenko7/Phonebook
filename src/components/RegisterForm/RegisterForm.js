@@ -1,5 +1,6 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Field } from 'formik';
+import { selectErrorRegistration } from 'redux/auth/selectors';
 import {
   Box,
   Button,
@@ -10,15 +11,27 @@ import {
   FormErrorMessage,
   Input,
   VStack,
+  Text,
 } from '@chakra-ui/react';
-
 import { register } from 'redux/auth/operations';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
+  const error = useSelector(selectErrorRegistration);
 
   return (
-    <Flex bg="gray.100" align="center" justify="center" h="100vh">
+    <Flex
+      bg="gray.100"
+      align="center"
+      justify="center"
+      h="100vh"
+      flexDirection="column"
+    >
+      {error && (
+        <Text fontSize="lg" color="#E74C3C" mb="10px">
+          Something went wrong. Try again!
+        </Text>
+      )}
       <Box bg="white" p={6} rounded="md" w={64}>
         <Formik
           initialValues={{
@@ -29,6 +42,7 @@ export const RegisterForm = () => {
           }}
           onSubmit={values => {
             const { name, email, password } = values;
+
             dispatch(
               register({
                 name: name,
