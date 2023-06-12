@@ -8,6 +8,7 @@ import { refreshUser } from 'redux/auth/operations';
 import { Loader } from './Loader/Loader';
 import { useAuth } from 'hooks';
 import { ChakraProvider } from '@chakra-ui/react';
+import { NotFound } from 'pages/NotFound';
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
@@ -45,6 +46,15 @@ export const App = () => {
                 <RestrictedRoute
                   redirectTo="/contacts"
                   component={<LoginPage />}
+                />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={<NotFound />}
                 />
               }
             />
