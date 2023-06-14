@@ -8,7 +8,7 @@ export const UserMenu = () => {
   const { user } = useAuth();
 
   return (
-    <Flex gap="5">
+    <Flex gap="5" flexDirection={{ base: 'column', lg: 'row' }}>
       <Text fontSize="lg" color="#fff">
         {user.email}
       </Text>

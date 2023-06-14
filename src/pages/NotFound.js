@@ -9,12 +9,12 @@ export const NotFound = () => {
       justifyContent="center"
       alignItems="center"
       pt="100px"
+      gap="20px"
     >
       <Text fontSize="5xl">Page NotFound</Text>
       <Link
         as={RouterLink}
         to="/"
-        mp="10px"
         sx={{
           '&:hover': {
             textDecoration: 'underline',

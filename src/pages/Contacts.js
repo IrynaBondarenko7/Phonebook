@@ -18,8 +18,14 @@ export default function Contacts() {
   }, [dispatch]);
 
   return (
-    <Flex>
-      <Box bg="teal" p="20px" pt="100" height="100vh" width="250px">
+    <Flex flexDirection={{ base: 'column', lg: 'row' }}>
+      <Box
+        bg="teal"
+        p="20px"
+        pt={{ base: '50px', lg: '100px' }}
+        height={{ base: '420px', lg: '100vh' }}
+        width={{ base: '100%', lg: '250px' }}
+      >
         <ContactEditor />
       </Box>
       <Box p="20px" m="0 auto">

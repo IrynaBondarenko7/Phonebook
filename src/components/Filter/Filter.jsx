@@ -30,6 +30,7 @@ export const Filter = () => {
           type="text"
           value={filter}
           onChange={changeFilter}
+          width={{ base: '350px', lg: '450px' }}
         />
         <InputLeftElement pointerEvents="none">
           <MdPersonSearch color="gray.400" />

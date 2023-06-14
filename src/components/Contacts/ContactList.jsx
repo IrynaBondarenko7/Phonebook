@@ -38,6 +38,7 @@ export const ContactList = () => {
             borderWidth="1px"
             borderRadius="8px"
             p="8px"
+            width={{ base: '350px', lg: '450px' }}
           >
             <Flex alignItems="center">
               <Box w="200px">
