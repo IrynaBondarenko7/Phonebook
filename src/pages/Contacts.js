@@ -37,7 +37,7 @@ export default function Contacts() {
               No contacts yet
             </Text>
             <Text fontSize="4xl" textAlign="center">
-              Create your first contact in the form on the left
+              Create your first contact in the form
             </Text>
           </Box>
         )}
