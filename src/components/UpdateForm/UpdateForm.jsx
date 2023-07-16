@@ -1,4 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Formik, Field } from 'formik';
 import {
   Box,
@@ -8,54 +9,36 @@ import {
   FormLabel,
   Input,
   VStack,
-  Text,
-  useToast,
 } from '@chakra-ui/react';
-import { addContact } from 'redux/contacts/operations';
-import { selectContacts } from 'redux/contacts/selectors';
+import { updateContact } from 'redux/contacts/operations';
 
-export const ContactEditor = () => {
+export const UpdateForm = ({ onClose, contact }) => {
+  const [contactName, setContactName] = useState(contact.name);
+  const [contactPhone, setcontactPhone] = useState(contact.number);
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
-
-  const toast = useToast();
 
   return (
-    <Flex bg="gray.100" align="center" justify="center">
+    <Flex bg="gray.100" align="center" justify="center" background="#fff">
       <Box bg="white" p={6} rounded="md" w={64}>
         <Formik
           initialValues={{
             name: '',
             number: '',
           }}
-          onSubmit={({ name, number }, { resetForm }) => {
-            const text = {
-              name: name,
-              number: number,
+          onSubmit={({ name, number }) => {
+            const body = {
+              contactId: contact.id,
+              text: {
+                name: contactName,
+                number: contactPhone,
+              },
             };
-            const contactsArray = contacts.filter(
-              contact => contact.name === text.name
-            );
 
-            if (contactsArray.length !== 0) {
-              toast({
-                title: `${text.name} is alredy in contacts`,
-                status: 'error',
-                isClosable: true,
-                position: 'top',
-              });
-              return;
-            }
-
-            dispatch(addContact(text));
-            resetForm({ name: '', phone: '' });
+            dispatch(updateContact(body));
           }}
         >
           {({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
-              <Text fontSize="xl" textAlign="center" mb="20px" color="teal">
-                New Contact
-              </Text>
               <VStack spacing={4} align="flex-start">
                 <FormControl isRequired>
                   <FormLabel htmlFor="name">Name</FormLabel>
@@ -65,6 +48,8 @@ export const ContactEditor = () => {
                     name="name"
                     type="text"
                     variant="filled"
+                    value={contactName}
+                    onChange={evt => setContactName(evt.target.value)}
                   />
                 </FormControl>
                 <FormControl isRequired>
@@ -75,12 +60,19 @@ export const ContactEditor = () => {
                     name="number"
                     type="text"
                     variant="filled"
+                    value={contactPhone}
+                    onChange={evt => setcontactPhone(evt.target.value)}
                     maxLength={13}
                   />
                 </FormControl>
 
-                <Button type="submit" colorScheme="teal" width="full">
-                  Add
+                <Button
+                  type="submit"
+                  colorScheme="teal"
+                  width="full"
+                  onClick={onClose}
+                >
+                  Save
                 </Button>
               </VStack>
             </form>

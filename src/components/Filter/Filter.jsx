@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilter } from 'redux/contacts/selectors';
-
 import { MdPersonSearch } from 'react-icons/md';
+import { selectFilter } from 'redux/contacts/selectors';
 import { setFilter } from 'redux/contacts/filtersSlice';
 import {
   Heading,
@@ -30,7 +29,7 @@ export const Filter = () => {
           type="text"
           value={filter}
           onChange={changeFilter}
-          width={{ base: '350px', lg: '450px' }}
+          width={{ base: '350px', lg: '550px' }}
         />
         <InputLeftElement pointerEvents="none">
           <MdPersonSearch color="gray.400" />

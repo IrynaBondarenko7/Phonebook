@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { ChakraProvider } from '@chakra-ui/react';
 import { Layout } from './Layout';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
 import { refreshUser } from 'redux/auth/operations';
 import { Loader } from './Loader/Loader';
 import { useAuth } from 'hooks';
-import { ChakraProvider } from '@chakra-ui/react';
 import { NotFound } from 'pages/NotFound';
 
 const HomePage = lazy(() => import('../pages/Home'));

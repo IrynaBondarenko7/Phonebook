@@ -1,5 +1,5 @@
-import { Container, Heading, Text, Button, Box } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
+import { Container, Heading, Text, Button, Box } from '@chakra-ui/react';
 
 export default function Home() {
   return (

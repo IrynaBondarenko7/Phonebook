@@ -1,7 +1,7 @@
 import { useAuth } from 'hooks';
-import { Link } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
+  Link,
   Flex,
   useBreakpointValue,
   Box,
