@@ -3,7 +3,7 @@ import { Container, Heading, Text, Button, Box } from '@chakra-ui/react';
 
 export default function Home() {
   return (
-    <Container maxW="1200px">
+    <Container maxW="1200px" flexGrow="1">
       <Heading
         as="h2"
         noOfLines={1}
